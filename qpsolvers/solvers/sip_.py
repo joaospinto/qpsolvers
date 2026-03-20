@@ -250,12 +250,12 @@ def sip_solve_problem(
     vars_.z[:] = 1.0  # type: ignore[index]
 
     ss = sip.Settings()
-    ss.max_iterations = 100
-    ss.max_ls_iterations = 1000
+    ss.max_iterations = 250
+    ss.max_ls_iterations = 2500
     ss.max_kkt_violation = 1e-8
     ss.max_merit_slope = 1e-16
     ss.penalty_parameter_increase_factor = 2.0
-    ss.mu_update_factor = 0.5
+    ss.mu_update_factor = 0.8
     ss.mu_min = 1e-16
     ss.max_penalty_parameter = 1e16
     ss.assert_checks_pass = True
