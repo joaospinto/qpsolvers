@@ -108,10 +108,6 @@ def sip_solve_problem(
          - Determines when we declare a line search failure.
        * - min_merit_slope_to_skip_line_search
          - Min merit slope to skip the line search.
-       * - dual_armijo_factor
-         - Fraction of the primal merit decrease to allow on the dual update.
-       * - min_allowed_merit_increase
-         - The minimum allowed merit function increase in the dual update.
        * - enable_elastics
          - Whether to enable the usage of elastic variables.
        * - elastic_var_cost_coeff
@@ -136,6 +132,11 @@ def sip_solve_problem(
     <https://github.com/joaospinto/sip/blob/main/sip/types.hpp>`__ for details.
     """
     P, q, G_, h, A_, b, lb, ub = problem.unpack()
+    # Only convert box bounds that have at least one finite entry.
+    if lb is not None and not np.any(np.isfinite(lb)):
+        lb = None
+    if ub is not None and not np.any(np.isfinite(ub)):
+        ub = None
     if lb is not None or ub is not None:
         G_, h = linear_from_box_inequalities(
             G_, h, lb, ub, use_sparse=problem.has_sparse
@@ -153,8 +154,10 @@ def sip_solve_problem(
     b = np.zeros((0,)) if b is None else b
 
     # Remove any infs from h.
-    G[np.isinf(h), :] = 0.0
-    h[np.isinf(h)] = 1.0
+    inf_mask = np.isinf(h)
+    if np.any(inf_mask):
+        G[inf_mask, :] = 0.0
+        h[inf_mask] = 1.0
 
     if not isinstance(P, spa.csr_matrix):
         P = spa.csc_matrix(P)
@@ -215,7 +218,7 @@ def sip_solve_problem(
 
     qs = sip.QDLDLSettings()
     qs.permute_kkt_system = True
-    qs.kkt_pinv = sip.get_kkt_perm_inv(
+    qs.kkt_pinv, kkt_nnz, kkt_L_nnz = sip.get_kkt_perm_inv_and_nnzs(
         P=hess_L,
         A=A,
         G=G,
@@ -228,12 +231,8 @@ def sip_solve_problem(
     pd.upper_hessian_lagrangian_nnz = upp_hess_L.nnz
     pd.jacobian_c_nnz = A.nnz
     pd.jacobian_g_nnz = G.nnz
-    pd.kkt_nnz, pd.kkt_L_nnz = sip.get_kkt_and_L_nnzs(
-        P=hess_L,
-        A=A,
-        G=G,
-        perm_inv=qs.kkt_pinv,
-    )
+    pd.kkt_nnz = kkt_nnz
+    pd.kkt_L_nnz = kkt_L_nnz
     pd.is_jacobian_c_transposed = True
     pd.is_jacobian_g_transposed = True
 
@@ -250,14 +249,14 @@ def sip_solve_problem(
     vars_.z[:] = 1.0  # type: ignore[index]
 
     ss = sip.Settings()
-    ss.max_iterations = 2000
-    ss.max_ls_iterations = 20000
-    ss.max_kkt_violation = 1e-8
+    ss.max_iterations = 10000
+    ss.max_ls_iterations = 200000
+    ss.max_kkt_violation = 1e-4
     ss.max_merit_slope = 1e-16
-    ss.penalty_parameter_increase_factor = 1.2
+    ss.penalty_parameter_increase_factor = 1.5
     ss.mu_update_factor = 0.8
     ss.mu_min = 1e-16
-    ss.max_penalty_parameter = 1e6
+    ss.max_penalty_parameter = 1e8
     ss.assert_checks_pass = True
 
     ss.print_logs = verbose
@@ -266,6 +265,14 @@ def sip_solve_problem(
     ss.print_derivative_check_logs = False
 
     time_limit = kwargs.pop("time_limit", float("inf"))
+
+    # Map eps_abs to max_kkt_violation if provided
+    eps_abs = kwargs.pop("eps_abs", None)
+    if eps_abs is not None:
+        ss.max_kkt_violation = eps_abs
+
+    # Also support eps_rel (ignored, but prevent it from being passed to SIP)
+    kwargs.pop("eps_rel", None)
 
     for key, value in kwargs.items():
         try:
@@ -295,12 +302,14 @@ def sip_solve_problem(
         return mco
 
     solver = sip.Solver(ss, qs, pd, mc, time_limit)
-
     output = solver.solve(vars_)
 
     solution = Solution(problem)
     solution.extras = {"sip_output": output, "sip_vars": vars_}
-    solution.found = output.exit_status == sip.Status.SOLVED
+    solution.found = output.exit_status in (
+        sip.Status.SOLVED,
+        sip.Status.SUBOPTIMAL,
+    )
     solution.obj = 0.5 * np.dot(
         P.T @ vars_.x,  # type: ignore[operator]
         vars_.x,

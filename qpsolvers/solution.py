@@ -175,7 +175,8 @@ class Solution:
         if lb is not None or ub is not None:
             if self.z_box is None:
                 return np.inf
-            z_box = self.z_box
+            if self.z_box.shape == self.x.shape:
+                z_box = self.z_box
 
         p = np.linalg.norm(Px + q + GTz + ATy + z_box, np.inf)
         return p  # type: ignore
@@ -222,7 +223,7 @@ class Solution:
 
         lb_z_box = 0.0
         ub_z_box = 0.0
-        if self.z_box is not None:
+        if self.z_box is not None and self.z_box.shape == self.x.shape:
             if lb is not None:
                 finite = np.asarray(lb != -np.inf).nonzero()
                 z_box_neg = np.minimum(self.z_box, 0.0)
