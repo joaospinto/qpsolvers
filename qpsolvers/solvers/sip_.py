@@ -250,20 +250,22 @@ def sip_solve_problem(
     vars_.z[:] = 1.0  # type: ignore[index]
 
     ss = sip.Settings()
-    ss.max_iterations = 250
-    ss.max_ls_iterations = 2500
+    ss.max_iterations = 2000
+    ss.max_ls_iterations = 20000
     ss.max_kkt_violation = 1e-8
     ss.max_merit_slope = 1e-16
-    ss.penalty_parameter_increase_factor = 2.0
+    ss.penalty_parameter_increase_factor = 1.2
     ss.mu_update_factor = 0.8
     ss.mu_min = 1e-16
-    ss.max_penalty_parameter = 1e16
+    ss.max_penalty_parameter = 1e6
     ss.assert_checks_pass = True
 
     ss.print_logs = verbose
     ss.print_line_search_logs = verbose
     ss.print_search_direction_logs = verbose
     ss.print_derivative_check_logs = False
+
+    time_limit = kwargs.pop("time_limit", float("inf"))
 
     for key, value in kwargs.items():
         try:
@@ -279,19 +281,20 @@ def sip_solve_problem(
         mco = sip.ModelCallbackOutput()
 
         Px = P.T @ mci.x  # type: ignore[operator]
+        kx = k * mci.x
 
-        mco.f = 0.5 * np.dot(Px, mci.x) + np.dot(q, mci.x)
+        mco.f = 0.5 * np.dot(Px + kx, mci.x) + np.dot(q, mci.x)
         mco.c = A @ mci.x - b  # type: ignore[operator]
         mco.g = G @ mci.x - h  # type: ignore[operator]
 
-        mco.gradient_f = Px + q
+        mco.gradient_f = Px + kx + q
         mco.jacobian_c = A
         mco.jacobian_g = G
         mco.upper_hessian_lagrangian = upp_hess_L
 
         return mco
 
-    solver = sip.Solver(ss, qs, pd, mc)
+    solver = sip.Solver(ss, qs, pd, mc, time_limit)
 
     output = solver.solve(vars_)
 
