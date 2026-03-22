@@ -153,11 +153,12 @@ def sip_solve_problem(
     h = np.zeros((0,)) if h is None else h
     b = np.zeros((0,)) if b is None else b
 
-    # Remove any infs from h.
-    inf_mask = np.isinf(h)
-    if np.any(inf_mask):
-        G[inf_mask, :] = 0.0
-        h[inf_mask] = 1.0
+    # Remove rows with infinite h (these are vacuous constraints that
+    # would otherwise inflate the KKT system with useless slack variables).
+    h_fin_mask = np.isfinite(h)
+    if not np.all(h_fin_mask):
+        G = G[h_fin_mask]
+        h = h[h_fin_mask]
 
     if not isinstance(P, spa.csr_matrix):
         P = spa.csc_matrix(P)
@@ -175,6 +176,16 @@ def sip_solve_problem(
     P.eliminate_zeros()
     G.eliminate_zeros()
     A.eliminate_zeros()
+
+    # Ruiz equilibration (feature flag: ruiz_equilibration_steps)
+    ruiz_steps = kwargs.pop("ruiz_equilibration_steps", 0)
+    d_scale = None
+    e_a_scale = None
+    e_g_scale = None
+    if ruiz_steps > 0:
+        P, q, A, b, G, h, d_scale, e_a_scale, e_g_scale = (
+            sip.ruiz_equilibration(P, q, A, b, G, h, ruiz_steps)
+        )
 
     P_T = spa.csc_matrix(P.T)
     if (
@@ -239,7 +250,10 @@ def sip_solve_problem(
     vars_ = sip.Variables(pd)
 
     if initvals is not None:
-        vars_.x[:] = initvals  # type: ignore[index]
+        if d_scale is not None:
+            vars_.x[:] = initvals / d_scale  # type: ignore[index]
+        else:
+            vars_.x[:] = initvals  # type: ignore[index]
     else:
         vars_.x[:] = 0.0  # type: ignore[index]
 
@@ -271,8 +285,12 @@ def sip_solve_problem(
     if eps_abs is not None:
         ss.max_kkt_violation = eps_abs
 
-    # Also support eps_rel (ignored, but prevent it from being passed to SIP)
-    kwargs.pop("eps_rel", None)
+    # Map eps_rel to SIP's eps_rel setting
+    eps_rel = kwargs.pop("eps_rel", None)
+    if eps_rel is not None and eps_rel > 0:
+        ss.eps_rel = eps_rel
+    else:
+        ss.eps_rel = ss.max_kkt_violation
 
     for key, value in kwargs.items():
         try:
@@ -288,15 +306,16 @@ def sip_solve_problem(
         mco = sip.ModelCallbackOutput()
 
         Px = P.T @ mci.x  # type: ignore[operator]
-        kx = k * mci.x
 
-        mco.f = 0.5 * np.dot(Px + kx, mci.x) + np.dot(q, mci.x)
+        mco.f = 0.5 * np.dot(Px, mci.x) + np.dot(q, mci.x)
         mco.c = A @ mci.x - b  # type: ignore[operator]
         mco.g = G @ mci.x - h  # type: ignore[operator]
 
-        mco.gradient_f = Px + kx + q
+        mco.gradient_f = Px + q
         mco.jacobian_c = A
         mco.jacobian_g = G
+        # The Hessian includes the regularization term P + kI,
+        # but the gradient and objective use the original P only.
         mco.upper_hessian_lagrangian = upp_hess_L
 
         return mco
@@ -310,17 +329,35 @@ def sip_solve_problem(
         sip.Status.SOLVED,
         sip.Status.SUBOPTIMAL,
     )
+
+    # Unscale solution if Ruiz equilibration was applied
+    x_sol = np.array(vars_.x)
+    y_sol = np.array(vars_.y)
+    if d_scale is not None:
+        x_sol = d_scale * x_sol
+        y_sol = e_a_scale * y_sol
+
+    P_orig, q_orig = problem.unpack()[:2]
+    if P_orig is None:
+        raise ProblemError("P is None")
     solution.obj = 0.5 * np.dot(
-        P.T @ vars_.x,  # type: ignore[operator]
-        vars_.x,
-    ) + np.dot(q, vars_.x)
-    solution.x = np.array(vars_.x)
-    solution.y = np.array(vars_.y)
+        P_orig.T @ x_sol, x_sol
+    ) + np.dot(q_orig, x_sol)
+    solution.x = x_sol
+    solution.y = y_sol
     if h is not None and vars_.z is not None:
         z_sip = np.array(vars_.z)
+        if d_scale is not None:
+            z_sip = e_g_scale * z_sip
+        # Re-expand z_sip to account for removed infinite-h rows.
+        if not np.all(h_fin_mask):
+            z_full = np.zeros(len(h_fin_mask))
+            z_full[h_fin_mask] = z_sip
+            z_sip = z_full
         z, z_box = split_dual_linear_box(z_sip, lb, ub)
         solution.z = z
         solution.z_box = z_box
+
     return solution
 
 
