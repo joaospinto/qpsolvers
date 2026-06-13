@@ -55,89 +55,79 @@ def sip_solve_problem(
 
     Notes
     -----
-    All other keyword arguments are forwarded as options to SIP. For
-    instance, you can call ``sip_solve_qp(P, q, G, h, eps_abs=1e-6)``.
-    For a quick overview, the solver accepts the following settings:
+    ``eps_abs`` is mapped to SIP's absolute termination checks:
+    ``termination.max_dual_residual``,
+    ``termination.max_constraint_violation``,
+    ``termination.max_complementarity_gap`` and
+    ``termination.max_duality_gap``. SIP does not expose a relative QP
+    termination tolerance, so ``eps_rel`` is ignored.
+
+    Other keyword arguments are forwarded to SIP settings. Top-level SIP
+    settings are passed as keyword arguments, while nested setting groups are
+    passed as dictionaries. For instance:
+
+    .. code-block:: python
+
+       sip_solve_qp(
+           P,
+           q,
+           G,
+           h,
+           max_iterations=100,
+           termination={"max_dual_residual": 1e-8},
+           line_search={"max_iterations": 1000},
+       )
+
+    Available SIP settings are:
 
     .. list-table::
        :widths: 30 70
        :header-rows: 1
 
-       * - Name
-         - Effect
-       * - max_iterations
-         - The maximum number of iterations the solver can do.
-       * - max_ls_iterations
-         - The maximum cumulative number of line search iterations.
-       * - min_iterations_for_convergence
-         - The least number of iterations until we can declare convergence.
-       * - num_iterative_refinement_steps
-         - The number of iterative refinement steps.
-       * - max_kkt_violation
-         - The maximum allowed violation of the KKT system.
-       * - max_merit_slope
-         - The maximum allowed merit function slope.
-       * - initial_regularization
-         - The initial x-regularizatino to be applied on the LHS.
-       * - regularization_decay_factor
-         - The multiplicative decay of the x-regularization coefficient.
-       * - tau
-         - A parameter of the fraction-to-the-boundary rule.
-       * - start_ls_with_alpha_s_max
-         - Determines whether we start with alpha=alpha_s_max or alpha=1.
-       * - initial_mu
-         - The initial barrier function coefficient.
-       * - mu_update_factor
-         - Determines how much mu decreases per iteration.
-       * - mu_min
-         - The minimum barrier coefficient.
-       * - initial_penalty_parameter
-         - The initial penalty parameter of the Augmented Lagrangian.
-       * - min_acceptable_constraint_violation_ratio
-         - Least acceptable constraint violation ratio to not increase eta.
-       * - penalty_parameter_increase_factor
-         - By what factor to increase eta.
-       * - penalty_parameter_decrease_factor
-         - By what factor to decrease eta.
-       * - max_penalty_parameter
-         - The maximum allowed penalty parameter in the AL merit function.
-       * - armijo_factor
-         - Determines when we accept a line search step.
-       * - line_search_factor
-         - Determines how much to backtrack at each line search iteration.
-       * - line_search_min_step_size
-         - Determines when we declare a line search failure.
-       * - min_merit_slope_to_skip_line_search
-         - Min merit slope to skip the line search.
-       * - dual_armijo_factor
-         - Fraction of the primal merit decrease to allow on the dual update.
-       * - min_allowed_merit_increase
-         - The minimum allowed merit function increase in the dual update.
-       * - enable_elastics
-         - Whether to enable the usage of elastic variables.
-       * - elastic_var_cost_coeff
-         - Elastic variables cost coefficient.
-       * - enable_line_search_failures
-         - Halts the optimization process if a good step is not found.
-       * - print_logs
-         - Determines whether we should print the solver logs.
-       * - print_line_search_logs
-         - Determines whether we should print the line search logs.
-       * - print_search_direction_logs
-         - Whether we should print the search direction computation logs.
-       * - print_derivative_check_logs
-         - Whether to print derivative check logs when something looks off.
-       * - only_check_search_direction_slope
-         - Only derivative-check the search direction.
-       * - assert_checks_pass
-         - Handle checks with assert calls.
-
-    This list may not be exhaustive.
+       * - Group
+         - Fields
+       * - top-level
+         - ``max_iterations``, ``num_iterative_refinement_steps``,
+           ``assert_checks_pass``
+       * - ``barrier``
+         - ``initial_mu``, ``mu_update_factor``, ``mu_min``,
+           ``mu_update_kappa``
+       * - ``penalty``
+         - ``initial_penalty_parameter``,
+           ``min_acceptable_constraint_violation_ratio``,
+           ``penalty_parameter_increase_factor``,
+           ``penalty_parameter_decrease_factor``,
+           ``max_penalty_parameter``
+       * - ``termination``
+         - ``max_dual_residual``, ``max_constraint_violation``,
+           ``max_complementarity_gap``, ``max_duality_gap``,
+           ``enable_cost_change_termination``, ``max_cost_change``,
+           ``max_relative_cost_change``,
+           ``max_suboptimal_constraint_violation``, ``max_merit_slope``
+       * - ``regularization``
+         - ``initial``, ``first_positive``, ``maximum``, ``max_attempts``,
+           ``increase_factor``, ``decrease_factor``
+       * - ``line_search``
+         - ``max_iterations``, ``tau``, ``start_ls_with_alpha_s_max``,
+           ``armijo_factor``, ``line_search_factor``,
+           ``line_search_min_step_size``,
+           ``min_merit_slope_to_skip_line_search``, ``skip_line_search``,
+           ``enable_line_search_failures``
+       * - ``logging``
+         - ``print_logs``, ``print_line_search_logs``,
+           ``print_search_direction_logs``, ``print_derivative_check_logs``,
+           ``only_check_search_direction_slope``
     Check the `Settings` struct in the `solver code
     <https://github.com/joaospinto/sip/blob/main/sip/types.hpp>`__ for details.
     """
     build_start_time = time.perf_counter()
     P, q, G_, h, A_, b, lb, ub = problem.unpack()
+    original_lb = lb
+    original_ub = ub
+    if lb is not None and not np.any(np.isfinite(lb)):
+        lb = None
+    if ub is not None and not np.any(np.isfinite(ub)):
+        ub = None
     if lb is not None or ub is not None:
         G_, h = linear_from_box_inequalities(
             G_, h, lb, ub, use_sparse=problem.has_sparse
@@ -154,9 +144,11 @@ def sip_solve_problem(
     h = np.zeros((0,)) if h is None else h
     b = np.zeros((0,)) if b is None else b
 
-    # Remove any infs from h.
-    G[np.isinf(h), :] = 0.0
-    h[np.isinf(h)] = 1.0
+    # Remove vacuous inequalities before creating SIP slack variables.
+    h_fin_mask = np.isfinite(h)
+    if not np.all(h_fin_mask):
+        G = G[h_fin_mask]
+        h = h[h_fin_mask]
 
     if not isinstance(P, spa.csr_matrix):
         P = spa.csc_matrix(P)
@@ -217,7 +209,7 @@ def sip_solve_problem(
 
     qs = sip.QDLDLSettings()
     qs.permute_kkt_system = True
-    qs.kkt_pinv = sip.get_kkt_perm_inv(
+    qs.kkt_pinv, kkt_nnz, kkt_L_nnz = sip.get_kkt_perm_inv_and_nnzs(
         P=hess_L,
         A=A,
         G=G,
@@ -230,12 +222,8 @@ def sip_solve_problem(
     pd.upper_hessian_lagrangian_nnz = upp_hess_L.nnz
     pd.jacobian_c_nnz = A.nnz
     pd.jacobian_g_nnz = G.nnz
-    pd.kkt_nnz, pd.kkt_L_nnz = sip.get_kkt_and_L_nnzs(
-        P=hess_L,
-        A=A,
-        G=G,
-        perm_inv=qs.kkt_pinv,
-    )
+    pd.kkt_nnz = kkt_nnz
+    pd.kkt_L_nnz = kkt_L_nnz
     pd.is_jacobian_c_transposed = True
     pd.is_jacobian_g_transposed = True
 
@@ -248,29 +236,80 @@ def sip_solve_problem(
 
     vars_.s[:] = 1.0  # type: ignore[index]
     vars_.y[:] = 0.0  # type: ignore[index]
-    vars_.e[:] = 0.0  # type: ignore[index]
     vars_.z[:] = 1.0  # type: ignore[index]
 
     ss = sip.Settings()
-    ss.max_iterations = 100
-    ss.max_ls_iterations = 1000
-    ss.max_kkt_violation = 1e-8
-    ss.max_merit_slope = 1e-16
-    ss.penalty_parameter_increase_factor = 2.0
-    ss.mu_update_factor = 0.5
-    ss.mu_min = 1e-16
-    ss.max_penalty_parameter = 1e16
+    ss.max_iterations = 10000
+    ss.line_search.max_iterations = 200000
+    ss.termination.max_dual_residual = 1e-4
+    ss.termination.max_constraint_violation = 1e-4
+    ss.termination.max_complementarity_gap = 1e-4
+    ss.termination.max_merit_slope = 1e-16
+    ss.penalty.penalty_parameter_increase_factor = 1.5
+    ss.barrier.mu_update_factor = 0.8
+    ss.barrier.mu_min = 1e-16
+    ss.penalty.max_penalty_parameter = 1e8
     ss.assert_checks_pass = True
 
-    ss.print_logs = verbose
-    ss.print_line_search_logs = verbose
-    ss.print_search_direction_logs = verbose
-    ss.print_derivative_check_logs = False
+    ss.logging.print_logs = verbose
+    ss.logging.print_line_search_logs = verbose
+    ss.logging.print_search_direction_logs = verbose
+    ss.logging.print_derivative_check_logs = False
+
+    def set_sip_setting(key, value) -> bool:
+        """Set a released SIP setting from qpsolvers' keyword interface."""
+        top_level_settings = {
+            "max_iterations",
+            "num_iterative_refinement_steps",
+            "assert_checks_pass",
+        }
+        setting_groups_by_name = {
+            "barrier": ss.barrier,
+            "penalty": ss.penalty,
+            "termination": ss.termination,
+            "regularization": ss.regularization,
+            "line_search": ss.line_search,
+            "logging": ss.logging,
+        }
+        if key in setting_groups_by_name:
+            if not isinstance(value, dict):
+                if verbose:
+                    warnings.warn(
+                        f"Expected a dictionary for SIP setting group {key}, "
+                        f"received {type(value).__name__}"
+                    )
+                return True
+            settings = setting_groups_by_name[key]
+            for nested_key, nested_value in value.items():
+                if hasattr(settings, nested_key):
+                    setattr(settings, nested_key, nested_value)
+                elif verbose:
+                    warnings.warn(
+                        f"Received an undefined SIP solver setting "
+                        f"{key}.{nested_key} with value {nested_value}"
+                    )
+            return True
+
+        if key in top_level_settings:
+            setattr(ss, key, value)
+            return True
+        return False
+
+    eps_abs = kwargs.pop("eps_abs", None)
+    if eps_abs is not None:
+        ss.termination.max_dual_residual = eps_abs
+        ss.termination.max_constraint_violation = eps_abs
+        ss.termination.max_complementarity_gap = eps_abs
+        ss.termination.max_duality_gap = eps_abs
+
+    eps_rel = kwargs.pop("eps_rel", None)
+    if verbose and eps_rel not in (None, 0.0):
+        warnings.warn("SIP does not support eps_rel; ignoring it.")
+
+    time_limit = kwargs.pop("time_limit", float("inf"))
 
     for key, value in kwargs.items():
-        try:
-            setattr(ss, key, value)
-        except AttributeError:
+        if not set_sip_setting(key, value):
             if verbose:
                 warnings.warn(
                     f"Received an undefined solver setting {key}\
@@ -293,7 +332,7 @@ def sip_solve_problem(
 
         return mco
 
-    solver = sip.Solver(ss, qs, pd, mc)
+    solver = sip.Solver(ss, qs, pd, mc, time_limit)
 
     solve_start_time = time.perf_counter()
     output = solver.solve(vars_)
@@ -301,7 +340,10 @@ def sip_solve_problem(
 
     solution = Solution(problem)
     solution.extras = {"sip_output": output, "sip_vars": vars_}
-    solution.found = output.exit_status == sip.Status.SOLVED
+    solution.found = output.exit_status in (
+        sip.Status.SOLVED,
+        sip.Status.SUBOPTIMAL,
+    )
     solution.obj = 0.5 * np.dot(
         P.T @ vars_.x,  # type: ignore[operator]
         vars_.x,
@@ -310,7 +352,16 @@ def sip_solve_problem(
     solution.y = np.array(vars_.y)
     if h is not None and vars_.z is not None:
         z_sip = np.array(vars_.z)
+        if not np.all(h_fin_mask):
+            z_full = np.zeros(len(h_fin_mask))
+            z_full[h_fin_mask] = z_sip
+            z_sip = z_full
         z, z_box = split_dual_linear_box(z_sip, lb, ub)
+        if (
+            (original_lb is not None or original_ub is not None)
+            and z_box.shape != (n,)
+        ):
+            z_box = np.zeros(n, dtype=z_sip.dtype)
         solution.z = z
         solution.z_box = z_box
     solution.build_time = solve_start_time - build_start_time
