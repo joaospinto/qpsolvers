@@ -564,9 +564,9 @@ class TestSolveQP(unittest.TestCase):
             P, q, G, h = self.get_sparse_problem()
             kwargs = {}
             tol_solvers = ("osqp", "proxqp", "qpalm", "scs")
-            if solver in tol_solvers:
-                kwargs["eps_abs"] = 2e-4
-            x = solve_qp(P, q, G, h, solver=solver)
+            if solver == "sip":
+                kwargs["eps_abs"] = 1e-6
+            x = solve_qp(P, q, G, h, solver=solver, **kwargs)
             self.assertIsNotNone(x)
             known_solution = array([2.0] * 149 + [3.0])
             sol_tolerance = (

@@ -18,7 +18,7 @@ corresponding GitHub repository (or paper, if one has been released).
 
 import time
 import warnings
-from typing import Optional, Union
+from typing import Optional, Union, cast
 
 import numpy as np
 import scipy.sparse as spa
@@ -71,12 +71,8 @@ def _ruiz_equilibration(P, q, A, b, G, h, num_steps):
         d_step = np.where(col_norm_x > 0.0, 1.0 / np.sqrt(safe_col), 1.0)
         safe_row_a = np.maximum(row_norm_a, 1e-300)
         safe_row_g = np.maximum(row_norm_g, 1e-300)
-        e_a_step = np.where(
-            row_norm_a > 0.0, 1.0 / np.sqrt(safe_row_a), 1.0
-        )
-        e_g_step = np.where(
-            row_norm_g > 0.0, 1.0 / np.sqrt(safe_row_g), 1.0
-        )
+        e_a_step = np.where(row_norm_a > 0.0, 1.0 / np.sqrt(safe_row_a), 1.0)
+        e_g_step = np.where(row_norm_g > 0.0, 1.0 / np.sqrt(safe_row_g), 1.0)
 
         d *= d_step
         e_a *= e_a_step
@@ -193,6 +189,7 @@ def sip_solve_problem(
          - ``print_logs``, ``print_line_search_logs``,
            ``print_search_direction_logs``, ``print_derivative_check_logs``,
            ``only_check_search_direction_slope``
+
     Check the `Settings` struct in the `solver code
     <https://github.com/joaospinto/sip/blob/main/sip/types.hpp>`__ for details.
     """
@@ -250,9 +247,12 @@ def sip_solve_problem(
     P_unscaled = P
     q_unscaled = q
     if ruiz_steps > 0:
-        P, q, A, b, G, h, d_scale, e_a_scale, e_g_scale = (
-            _ruiz_equilibration(P, q, A, b, G, h, ruiz_steps)
+        P, q, A, b, G, h, d_scale, e_a_scale, e_g_scale = _ruiz_equilibration(
+            P, q, A, b, G, h, ruiz_steps
         )
+    P = cast(spa.csc_matrix, P)
+    G = cast(spa.csr_matrix, G)
+    A = cast(spa.csr_matrix, A)
 
     P_T = spa.csc_matrix(P.T)
     if (
@@ -331,9 +331,9 @@ def sip_solve_problem(
     ss = sip.Settings()
     ss.max_iterations = 10000
     ss.line_search.max_iterations = 200000
-    ss.termination.max_dual_residual = 1e-4
-    ss.termination.max_constraint_violation = 1e-4
-    ss.termination.max_complementarity_gap = 1e-4
+    ss.termination.max_dual_residual = 1e-6
+    ss.termination.max_constraint_violation = 1e-6
+    ss.termination.max_complementarity_gap = 1e-6
     ss.termination.max_merit_slope = 1e-16
     ss.penalty.penalty_parameter_increase_factor = 1.5
     ss.barrier.mu_update_factor = 0.8
@@ -455,9 +455,8 @@ def sip_solve_problem(
             z_full[h_fin_mask] = z_sip
             z_sip = z_full
         z, z_box = split_dual_linear_box(z_sip, lb, ub)
-        if (
-            (original_lb is not None or original_ub is not None)
-            and z_box.shape != (n,)
+        if (original_lb is not None or original_ub is not None) and (
+            z_box is None or z_box.shape != (n,)
         ):
             z_box = np.zeros(n, dtype=z_sip.dtype)
         solution.z = z

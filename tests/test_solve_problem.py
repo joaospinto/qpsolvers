@@ -117,7 +117,8 @@ class TestSolveProblem(unittest.TestCase):
 
         def test(self):
             problem, ref_solution = get_qpsut02()
-            solution = solve_problem(problem, solver=solver)
+            kwargs = {"eps_abs": 5e-7} if solver == "sip" else {}
+            solution = solve_problem(problem, solver=solver, **kwargs)
             eps_abs = (
                 5e-2
                 if solver in ["ecos", "jaxopt_osqp", "qpalm"]
