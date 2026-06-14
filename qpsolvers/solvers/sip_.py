@@ -30,6 +30,82 @@ from ..problem import Problem
 from ..solution import Solution
 
 
+def _ruiz_equilibration(P, q, A, b, G, h, num_steps):
+    """Apply simple Ruiz equilibration to QP data."""
+    n = q.shape[0]
+    m_a = A.shape[0]
+    m_g = G.shape[0]
+
+    d = np.ones(n)
+    e_a = np.ones(m_a)
+    e_g = np.ones(m_g)
+
+    P_s = P.copy()
+    A_s = A.copy()
+    G_s = G.copy()
+
+    for _ in range(num_steps):
+        P_abs = spa.csc_matrix(P_s.copy())
+        P_abs.data = np.abs(P_abs.data)
+        col_norm_x = np.array(P_abs.max(axis=0).todense()).ravel()
+
+        if m_a > 0:
+            A_abs = spa.csc_matrix(A_s.copy())
+            A_abs.data = np.abs(A_abs.data)
+            col_norm_a = np.array(A_abs.max(axis=0).todense()).ravel()
+            col_norm_x = np.maximum(col_norm_x, col_norm_a)
+            row_norm_a = np.array(A_abs.max(axis=1).todense()).ravel()
+        else:
+            row_norm_a = np.ones(0)
+
+        if m_g > 0:
+            G_abs = spa.csc_matrix(G_s.copy())
+            G_abs.data = np.abs(G_abs.data)
+            col_norm_g = np.array(G_abs.max(axis=0).todense()).ravel()
+            col_norm_x = np.maximum(col_norm_x, col_norm_g)
+            row_norm_g = np.array(G_abs.max(axis=1).todense()).ravel()
+        else:
+            row_norm_g = np.ones(0)
+
+        safe_col = np.maximum(col_norm_x, 1e-300)
+        d_step = np.where(col_norm_x > 0.0, 1.0 / np.sqrt(safe_col), 1.0)
+        safe_row_a = np.maximum(row_norm_a, 1e-300)
+        safe_row_g = np.maximum(row_norm_g, 1e-300)
+        e_a_step = np.where(
+            row_norm_a > 0.0, 1.0 / np.sqrt(safe_row_a), 1.0
+        )
+        e_g_step = np.where(
+            row_norm_g > 0.0, 1.0 / np.sqrt(safe_row_g), 1.0
+        )
+
+        d *= d_step
+        e_a *= e_a_step
+        e_g *= e_g_step
+
+        D = spa.diags(d_step)
+        P_s = D @ P_s @ D
+        if m_a > 0:
+            A_s = spa.diags(e_a_step) @ A_s @ D
+        if m_g > 0:
+            G_s = spa.diags(e_g_step) @ G_s @ D
+
+    q_s = d * q
+    b_s = e_a * b if m_a > 0 else b
+    h_s = e_g * h if m_g > 0 else h
+
+    return (
+        spa.csc_matrix((P_s + P_s.T) / 2.0),
+        q_s,
+        spa.csr_matrix(A_s),
+        b_s,
+        spa.csr_matrix(G_s),
+        h_s,
+        d,
+        e_a,
+        e_g,
+    )
+
+
 def sip_solve_problem(
     problem: Problem,
     initvals: Optional[np.ndarray] = None,
@@ -167,6 +243,17 @@ def sip_solve_problem(
     G.eliminate_zeros()
     A.eliminate_zeros()
 
+    ruiz_steps = kwargs.pop("ruiz_equilibration_steps", 0)
+    d_scale = None
+    e_a_scale = None
+    e_g_scale = None
+    P_unscaled = P
+    q_unscaled = q
+    if ruiz_steps > 0:
+        P, q, A, b, G, h, d_scale, e_a_scale, e_g_scale = (
+            _ruiz_equilibration(P, q, A, b, G, h, ruiz_steps)
+        )
+
     P_T = spa.csc_matrix(P.T)
     if (
         (P.indices != P_T.indices).any()
@@ -230,7 +317,10 @@ def sip_solve_problem(
     vars_ = sip.Variables(pd)
 
     if initvals is not None:
-        vars_.x[:] = initvals  # type: ignore[index]
+        if d_scale is not None:
+            vars_.x[:] = initvals / d_scale  # type: ignore[index]
+        else:
+            vars_.x[:] = initvals  # type: ignore[index]
     else:
         vars_.x[:] = 0.0  # type: ignore[index]
 
@@ -344,14 +434,22 @@ def sip_solve_problem(
         sip.Status.SOLVED,
         sip.Status.SUBOPTIMAL,
     )
+    x_sol = np.array(vars_.x)
+    y_sol = np.array(vars_.y)
+    if d_scale is not None:
+        x_sol = d_scale * x_sol
+        y_sol = e_a_scale * y_sol
+
     solution.obj = 0.5 * np.dot(
-        P.T @ vars_.x,  # type: ignore[operator]
-        vars_.x,
-    ) + np.dot(q, vars_.x)
-    solution.x = np.array(vars_.x)
-    solution.y = np.array(vars_.y)
+        P_unscaled.T @ x_sol,  # type: ignore[operator]
+        x_sol,
+    ) + np.dot(q_unscaled, x_sol)
+    solution.x = x_sol
+    solution.y = y_sol
     if h is not None and vars_.z is not None:
         z_sip = np.array(vars_.z)
+        if e_g_scale is not None:
+            z_sip = e_g_scale * z_sip
         if not np.all(h_fin_mask):
             z_full = np.zeros(len(h_fin_mask))
             z_full[h_fin_mask] = z_sip
