@@ -5,8 +5,6 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -138,7 +136,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/83/c2/3904f30760ab3ca2f22ee63677871bde0135e8a3cdb6cbdbd4590af8ef01/qpalm-1.2.6-cp310-cp310-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/c4/01/2c7f6bfb581d913cbb4fbe8fce34ff7a882f4c57c36f23bbbec5b86b9832/sip_python-0.0.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/18/5e/6def05edee8ea87bc6332a84bccc5f201a1e5a4f2431629a64191d3773a6/sip_python-0.0.5-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-doc-0.0.4-pyhcf101f3_0.conda
@@ -267,7 +265,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/af/51/13424a32cc7a3421d1c213b979150a62d4e5081dd99281971eb86824251d/qpalm-1.2.6-cp310-cp310-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/e5/04/1d664226578147a54f9c1ff79285159fef85e4fd4e1fa884e016b4a14c3b/sip_python-0.0.2-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/48/e0/31bf015d1b26f01fb172a24cbf488b8e6bfdca651f3f202dad20d530ed76/sip_python-0.0.5-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-doc-0.0.4-pyhcf101f3_0.conda
@@ -389,7 +387,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/0f/28/61881794071a9b15798969d60f4ffdb2d922952c9ddcfc1881b7fffa4745/qpalm-1.2.6-cp310-cp310-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/07/db/27d0259366f0d89db56464afc8cb2bb03e1c2697d6467ab6865294998963/sip_python-0.0.2-cp310-cp310-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/5e/51/2604eceecf57124d05d396a8f274693161af8ac4938d92a47a4e1ce3bbb1/sip_python-0.0.5-cp310-cp310-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/annotated-doc-0.0.4-pyhcf101f3_0.conda
@@ -495,14 +493,12 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/bf/03/9dbb463a197873b006e4960b37dd9a39a88c2fa5125cfa6e5d281059ea21/qpalm-1.2.6-cp310-cp310-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/40/50/675e5634c66742eb2baf0a70f0b971575abe506f22a35f627841a9097456/sip_python-0.0.2-cp310-cp310-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/01/01/5e683bcf25d308f12f81be2254921f2164286d7d80460e9187fd7fad7a4e/sip_python-0.0.5-cp310-cp310-win_amd64.whl
   default:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -609,7 +605,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a0/19/0c0d56199b5aecbeb2c54664653a6f2b14366cdcbd84b6409477a168736c/qpalm-1.2.6-cp313-cp313-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/22/7a/dbb07906e341721dae974e97f5439c4dd4ac85acd36e625d0bd85db66fe3/sip_python-0.0.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/8e/ef/a26a017dddef395245ca5ffb2f282f0ba11ef4e1f467027bc690ae822dc1/sip_python-0.0.5-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/bzip2-1.0.8-h4777abc_9.conda
@@ -713,7 +709,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/19/1d/e78be3aa1ec6f39492aa190f48841ab704cb452368175d816fbe2a52b81b/qpalm-1.2.6-cp313-cp313-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/68/fe/9711af51430d6bdbffaa9d5e505af12e2ba67c6e9a75b26474fe1a1673d4/sip_python-0.0.2-cp312-abi3-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/a7/95/9cf26ae2a9fc46393e86257c3cf01c6597bb56d27f3a7d41da80f65f6554/sip_python-0.0.5-cp312-abi3-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_9.conda
@@ -812,7 +808,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/65/8a/916b4c0e688668e9166c0dd7e60e4bb1a5698024b0b8c67494480c80871b/qpalm-1.2.6-cp313-cp313-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7b/4f/b86d9e6a941eb883332ab0c276b74a5ad058dd2a23bb5079d2d518322380/sip_python-0.0.2-cp312-abi3-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/2a/b3/3921ebff0da4423fdc1199c418bef52fbe81446b98d729201caa0832887f/sip_python-0.0.5-cp312-abi3-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_9.conda
@@ -892,14 +888,12 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/34/82/7ae03c13203402cbd1a57d8922916f5285b051ee7aab38803e7ef8ff0fb1/qpalm-1.2.6-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/66/e9/4cf3033caaced598b12242c3c112c6853623432a891f316f3b2935e122bd/sip_python-0.0.2-cp312-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/e8/5a/8d607e44007d826924ab51a9429bd1328fa31242e48f9ecc02e3f5e73cde/sip_python-0.0.5-cp312-abi3-win_amd64.whl
   docs:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -1039,7 +1033,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/83/c2/3904f30760ab3ca2f22ee63677871bde0135e8a3cdb6cbdbd4590af8ef01/qpalm-1.2.6-cp310-cp310-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/c4/01/2c7f6bfb581d913cbb4fbe8fce34ff7a882f4c57c36f23bbbec5b86b9832/sip_python-0.0.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/18/5e/6def05edee8ea87bc6332a84bccc5f201a1e5a4f2431629a64191d3773a6/sip_python-0.0.5-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/46/2c/1462b1d0a634697ae9e55b3cecdcb64788e8b7d63f54d923fcd0bb140aed/soupsieve-2.8.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3c/dd/018ce05c532a22007ac58d4f45232514cd9d6dd0ee1dc374e309db830983/sphinx_basic_ng-1.0.0b2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/33/62/217b8943b6ca6f293a169e019ca9c7e8ec4a07aded5bf6195eaa004f0d09/sphinx_mathjax_offline-0.0.2-py3-none-any.whl
@@ -1179,7 +1173,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/af/51/13424a32cc7a3421d1c213b979150a62d4e5081dd99281971eb86824251d/qpalm-1.2.6-cp310-cp310-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/e5/04/1d664226578147a54f9c1ff79285159fef85e4fd4e1fa884e016b4a14c3b/sip_python-0.0.2-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/48/e0/31bf015d1b26f01fb172a24cbf488b8e6bfdca651f3f202dad20d530ed76/sip_python-0.0.5-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/46/2c/1462b1d0a634697ae9e55b3cecdcb64788e8b7d63f54d923fcd0bb140aed/soupsieve-2.8.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3c/dd/018ce05c532a22007ac58d4f45232514cd9d6dd0ee1dc374e309db830983/sphinx_basic_ng-1.0.0b2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/33/62/217b8943b6ca6f293a169e019ca9c7e8ec4a07aded5bf6195eaa004f0d09/sphinx_mathjax_offline-0.0.2-py3-none-any.whl
@@ -1312,7 +1306,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/0f/28/61881794071a9b15798969d60f4ffdb2d922952c9ddcfc1881b7fffa4745/qpalm-1.2.6-cp310-cp310-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/07/db/27d0259366f0d89db56464afc8cb2bb03e1c2697d6467ab6865294998963/sip_python-0.0.2-cp310-cp310-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/5e/51/2604eceecf57124d05d396a8f274693161af8ac4938d92a47a4e1ce3bbb1/sip_python-0.0.5-cp310-cp310-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/46/2c/1462b1d0a634697ae9e55b3cecdcb64788e8b7d63f54d923fcd0bb140aed/soupsieve-2.8.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3c/dd/018ce05c532a22007ac58d4f45232514cd9d6dd0ee1dc374e309db830983/sphinx_basic_ng-1.0.0b2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/33/62/217b8943b6ca6f293a169e019ca9c7e8ec4a07aded5bf6195eaa004f0d09/sphinx_mathjax_offline-0.0.2-py3-none-any.whl
@@ -1428,7 +1422,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/bf/03/9dbb463a197873b006e4960b37dd9a39a88c2fa5125cfa6e5d281059ea21/qpalm-1.2.6-cp310-cp310-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/40/50/675e5634c66742eb2baf0a70f0b971575abe506f22a35f627841a9097456/sip_python-0.0.2-cp310-cp310-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/01/01/5e683bcf25d308f12f81be2254921f2164286d7d80460e9187fd7fad7a4e/sip_python-0.0.5-cp310-cp310-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/46/2c/1462b1d0a634697ae9e55b3cecdcb64788e8b7d63f54d923fcd0bb140aed/soupsieve-2.8.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3c/dd/018ce05c532a22007ac58d4f45232514cd9d6dd0ee1dc374e309db830983/sphinx_basic_ng-1.0.0b2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/33/62/217b8943b6ca6f293a169e019ca9c7e8ec4a07aded5bf6195eaa004f0d09/sphinx_mathjax_offline-0.0.2-py3-none-any.whl
@@ -1437,8 +1431,6 @@ environments:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -1547,7 +1539,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/83/c2/3904f30760ab3ca2f22ee63677871bde0135e8a3cdb6cbdbd4590af8ef01/qpalm-1.2.6-cp310-cp310-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/c4/01/2c7f6bfb581d913cbb4fbe8fce34ff7a882f4c57c36f23bbbec5b86b9832/sip_python-0.0.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/18/5e/6def05edee8ea87bc6332a84bccc5f201a1e5a4f2431629a64191d3773a6/sip_python-0.0.5-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/bzip2-1.0.8-h4777abc_9.conda
@@ -1653,7 +1645,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/af/51/13424a32cc7a3421d1c213b979150a62d4e5081dd99281971eb86824251d/qpalm-1.2.6-cp310-cp310-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/e5/04/1d664226578147a54f9c1ff79285159fef85e4fd4e1fa884e016b4a14c3b/sip_python-0.0.2-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/48/e0/31bf015d1b26f01fb172a24cbf488b8e6bfdca651f3f202dad20d530ed76/sip_python-0.0.5-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_9.conda
@@ -1752,7 +1744,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/0f/28/61881794071a9b15798969d60f4ffdb2d922952c9ddcfc1881b7fffa4745/qpalm-1.2.6-cp310-cp310-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/07/db/27d0259366f0d89db56464afc8cb2bb03e1c2697d6467ab6865294998963/sip_python-0.0.2-cp310-cp310-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/5e/51/2604eceecf57124d05d396a8f274693161af8ac4938d92a47a4e1ce3bbb1/sip_python-0.0.5-cp310-cp310-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_9.conda
@@ -1832,14 +1824,12 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/bf/03/9dbb463a197873b006e4960b37dd9a39a88c2fa5125cfa6e5d281059ea21/qpalm-1.2.6-cp310-cp310-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/40/50/675e5634c66742eb2baf0a70f0b971575abe506f22a35f627841a9097456/sip_python-0.0.2-cp310-cp310-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/01/01/5e683bcf25d308f12f81be2254921f2164286d7d80460e9187fd7fad7a4e/sip_python-0.0.5-cp310-cp310-win_amd64.whl
   lint:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -1970,7 +1960,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/40/90/1f00df24b3afabee016b937fdd223b52a0cf0921ed52dac95f61cb602e4e/qpalm-1.2.6-cp312-cp312-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/22/7a/dbb07906e341721dae974e97f5439c4dd4ac85acd36e625d0bd85db66fe3/sip_python-0.0.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/8e/ef/a26a017dddef395245ca5ffb2f282f0ba11ef4e1f467027bc690ae822dc1/sip_python-0.0.5-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/astroid-4.0.4-py312h996f985_0.conda
@@ -2098,7 +2088,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/89/2b/0a70b3f145ddfb041144c217497be0327d6934977818b9a81bc88971c4d3/qpalm-1.2.6-cp312-cp312-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/68/fe/9711af51430d6bdbffaa9d5e505af12e2ba67c6e9a75b26474fe1a1673d4/sip_python-0.0.2-cp312-abi3-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/a7/95/9cf26ae2a9fc46393e86257c3cf01c6597bb56d27f3a7d41da80f65f6554/sip_python-0.0.5-cp312-abi3-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/astroid-4.0.4-py312h81bd7bf_0.conda
@@ -2219,7 +2209,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/02/5f/ab8b48ff41792549fdcd7ed803ed6a98b06368106aa4a1f8b23539e8d2d8/qpalm-1.2.6-cp312-cp312-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7b/4f/b86d9e6a941eb883332ab0c276b74a5ad058dd2a23bb5079d2d518322380/sip_python-0.0.2-cp312-abi3-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/2a/b3/3921ebff0da4423fdc1199c418bef52fbe81446b98d729201caa0832887f/sip_python-0.0.5-cp312-abi3-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/astroid-4.0.4-py312h2e8e312_0.conda
@@ -2321,14 +2311,12 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/03/9d/b2275dbe5981650d076dbeaf5c02723e6a625af80766e712c3cf4543cf18/qpalm-1.2.6-cp312-cp312-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/66/e9/4cf3033caaced598b12242c3c112c6853623432a891f316f3b2935e122bd/sip_python-0.0.2-cp312-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/e8/5a/8d607e44007d826924ab51a9429bd1328fa31242e48f9ecc02e3f5e73cde/sip_python-0.0.5-cp312-abi3-win_amd64.whl
   test-py310:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -2436,7 +2424,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/83/c2/3904f30760ab3ca2f22ee63677871bde0135e8a3cdb6cbdbd4590af8ef01/qpalm-1.2.6-cp310-cp310-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/c4/01/2c7f6bfb581d913cbb4fbe8fce34ff7a882f4c57c36f23bbbec5b86b9832/sip_python-0.0.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/18/5e/6def05edee8ea87bc6332a84bccc5f201a1e5a4f2431629a64191d3773a6/sip_python-0.0.5-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/bzip2-1.0.8-h4777abc_9.conda
@@ -2541,7 +2529,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/af/51/13424a32cc7a3421d1c213b979150a62d4e5081dd99281971eb86824251d/qpalm-1.2.6-cp310-cp310-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/e5/04/1d664226578147a54f9c1ff79285159fef85e4fd4e1fa884e016b4a14c3b/sip_python-0.0.2-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/48/e0/31bf015d1b26f01fb172a24cbf488b8e6bfdca651f3f202dad20d530ed76/sip_python-0.0.5-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_9.conda
@@ -2639,7 +2627,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/0f/28/61881794071a9b15798969d60f4ffdb2d922952c9ddcfc1881b7fffa4745/qpalm-1.2.6-cp310-cp310-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/07/db/27d0259366f0d89db56464afc8cb2bb03e1c2697d6467ab6865294998963/sip_python-0.0.2-cp310-cp310-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/5e/51/2604eceecf57124d05d396a8f274693161af8ac4938d92a47a4e1ce3bbb1/sip_python-0.0.5-cp310-cp310-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_9.conda
@@ -2718,14 +2706,12 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/bf/03/9dbb463a197873b006e4960b37dd9a39a88c2fa5125cfa6e5d281059ea21/qpalm-1.2.6-cp310-cp310-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/40/50/675e5634c66742eb2baf0a70f0b971575abe506f22a35f627841a9097456/sip_python-0.0.2-cp310-cp310-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/01/01/5e683bcf25d308f12f81be2254921f2164286d7d80460e9187fd7fad7a4e/sip_python-0.0.5-cp310-cp310-win_amd64.whl
   test-py311:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -2833,7 +2819,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/8f/07/5d1a29164dfd854e9bcb46286ab3e29f824692c72b04be56d39615497b6d/qpalm-1.2.6-cp311-cp311-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/28/79/2c34a3dfb12ab54dfe7213cd6b3e775699e2922d770aab3597b6ba7becd4/sip_python-0.0.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/0e/73/3e43473c8cc93a0c45fd119829063ae039375d996306c9c2204916bb8f8f/sip_python-0.0.5-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/bzip2-1.0.8-h4777abc_9.conda
@@ -2938,7 +2924,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/21/05/c3480c3c6f45c434bf9c67ba3f756e72f05a9e00f0be6e59c9d1f9f20ad3/qpalm-1.2.6-cp311-cp311-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7d/93/cbf10877d6e6eae9207f3c6940bb455cc102929ec06e6eb7ba39967eca2e/sip_python-0.0.2-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/b0/bd/f9f124decaa3ddae05f83edffed9b9cdccd59af845e4076f7d82121ddfe5/sip_python-0.0.5-cp311-cp311-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_9.conda
@@ -3036,7 +3022,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/e5/7d/29086861679b71324d81638f0720bc0c926ed246efbdf8fe5a35e41317b3/qpalm-1.2.6-cp311-cp311-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/90/42/3c7769d209a8c125954458cf7accd74a0c1f221e3bf337cc97ab9326046b/sip_python-0.0.2-cp311-cp311-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/4a/47/312777ae4cbcf56bbaba22a1f71ad460d021dadaacfba88a91f06368ef78/sip_python-0.0.5-cp311-cp311-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_9.conda
@@ -3115,14 +3101,12 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/9e/66/21be5d20ca0be912f48f25eb240ad27a58e48bcdeaa0b2f900d44ae59754/qpalm-1.2.6-cp311-cp311-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/72/8c/35a069eaa89b5d5207fa6f0fcc42af81179b3001b8b681eaac1330590fda/sip_python-0.0.2-cp311-cp311-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/28/2c/8d436a1f149ddfb10216030fb95393ab6720a9579beb4aa7216486dae4d1/sip_python-0.0.5-cp311-cp311-win_amd64.whl
   test-py312:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -3230,7 +3214,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/40/90/1f00df24b3afabee016b937fdd223b52a0cf0921ed52dac95f61cb602e4e/qpalm-1.2.6-cp312-cp312-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/22/7a/dbb07906e341721dae974e97f5439c4dd4ac85acd36e625d0bd85db66fe3/sip_python-0.0.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/8e/ef/a26a017dddef395245ca5ffb2f282f0ba11ef4e1f467027bc690ae822dc1/sip_python-0.0.5-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/bzip2-1.0.8-h4777abc_9.conda
@@ -3335,7 +3319,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/89/2b/0a70b3f145ddfb041144c217497be0327d6934977818b9a81bc88971c4d3/qpalm-1.2.6-cp312-cp312-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/68/fe/9711af51430d6bdbffaa9d5e505af12e2ba67c6e9a75b26474fe1a1673d4/sip_python-0.0.2-cp312-abi3-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/a7/95/9cf26ae2a9fc46393e86257c3cf01c6597bb56d27f3a7d41da80f65f6554/sip_python-0.0.5-cp312-abi3-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_9.conda
@@ -3433,7 +3417,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/02/5f/ab8b48ff41792549fdcd7ed803ed6a98b06368106aa4a1f8b23539e8d2d8/qpalm-1.2.6-cp312-cp312-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7b/4f/b86d9e6a941eb883332ab0c276b74a5ad058dd2a23bb5079d2d518322380/sip_python-0.0.2-cp312-abi3-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/2a/b3/3921ebff0da4423fdc1199c418bef52fbe81446b98d729201caa0832887f/sip_python-0.0.5-cp312-abi3-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_9.conda
@@ -3512,14 +3496,12 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/03/9d/b2275dbe5981650d076dbeaf5c02723e6a625af80766e712c3cf4543cf18/qpalm-1.2.6-cp312-cp312-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/66/e9/4cf3033caaced598b12242c3c112c6853623432a891f316f3b2935e122bd/sip_python-0.0.2-cp312-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/e8/5a/8d607e44007d826924ab51a9429bd1328fa31242e48f9ecc02e3f5e73cde/sip_python-0.0.5-cp312-abi3-win_amd64.whl
   test-py313:
     channels:
     - url: https://conda.anaconda.org/conda-forge/
     indexes:
     - https://pypi.org/simple
-    options:
-      pypi-prerelease-mode: if-necessary-or-explicit
     packages:
       linux-64:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
@@ -3626,7 +3608,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a0/19/0c0d56199b5aecbeb2c54664653a6f2b14366cdcbd84b6409477a168736c/qpalm-1.2.6-cp313-cp313-manylinux_2_27_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/22/7a/dbb07906e341721dae974e97f5439c4dd4ac85acd36e625d0bd85db66fe3/sip_python-0.0.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/8e/ef/a26a017dddef395245ca5ffb2f282f0ba11ef4e1f467027bc690ae822dc1/sip_python-0.0.5-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
       linux-aarch64:
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/_openmp_mutex-4.5-20_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/bzip2-1.0.8-h4777abc_9.conda
@@ -3730,7 +3712,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/19/1d/e78be3aa1ec6f39492aa190f48841ab704cb452368175d816fbe2a52b81b/qpalm-1.2.6-cp313-cp313-manylinux_2_27_aarch64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/68/fe/9711af51430d6bdbffaa9d5e505af12e2ba67c6e9a75b26474fe1a1673d4/sip_python-0.0.2-cp312-abi3-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+      - pypi: https://files.pythonhosted.org/packages/a7/95/9cf26ae2a9fc46393e86257c3cf01c6597bb56d27f3a7d41da80f65f6554/sip_python-0.0.5-cp312-abi3-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/_openmp_mutex-4.5-7_kmp_llvm.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_9.conda
@@ -3829,7 +3811,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/65/8a/916b4c0e688668e9166c0dd7e60e4bb1a5698024b0b8c67494480c80871b/qpalm-1.2.6-cp313-cp313-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/7b/4f/b86d9e6a941eb883332ab0c276b74a5ad058dd2a23bb5079d2d518322380/sip_python-0.0.2-cp312-abi3-macosx_11_0_arm64.whl
+      - pypi: https://files.pythonhosted.org/packages/2a/b3/3921ebff0da4423fdc1199c418bef52fbe81446b98d729201caa0832887f/sip_python-0.0.5-cp312-abi3-macosx_11_0_arm64.whl
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/noarch/_x86_64-microarch-level-1-3_x86_64.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_9.conda
@@ -3909,7 +3891,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/34/82/7ae03c13203402cbd1a57d8922916f5285b051ee7aab38803e7ef8ff0fb1/qpalm-1.2.6-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/9c/a5/1b277ca08381a977dc282d9f4eeee002e282ea25df384e2f56cc30b69785/qpax-0.0.10-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a1/29/fff26686eedbf083af5c967d5e934f9ba3586591d427a3f4774ba1175b71/qtqp-0.0.3-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/66/e9/4cf3033caaced598b12242c3c112c6853623432a891f316f3b2935e122bd/sip_python-0.0.2-cp312-abi3-win_amd64.whl
+      - pypi: https://files.pythonhosted.org/packages/e8/5a/8d607e44007d826924ab51a9429bd1328fa31242e48f9ecc02e3f5e73cde/sip_python-0.0.5-cp312-abi3-win_amd64.whl
 packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/_openmp_mutex-4.5-20_gnu.conda
   build_number: 20
@@ -14591,101 +14573,113 @@ packages:
   purls: []
   size: 483090
   timestamp: 1714665491492
-- pypi: https://files.pythonhosted.org/packages/07/db/27d0259366f0d89db56464afc8cb2bb03e1c2697d6467ab6865294998963/sip_python-0.0.2-cp310-cp310-macosx_11_0_arm64.whl
+- pypi: https://files.pythonhosted.org/packages/01/01/5e683bcf25d308f12f81be2254921f2164286d7d80460e9187fd7fad7a4e/sip_python-0.0.5-cp310-cp310-win_amd64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 33b991a601035b5b244d8a4942ce9c26242e8ef0797bbf152fd42c40ab7eabc4
+  version: 0.0.5
+  sha256: 7471270e37d34f920ed569ddc587742aea3c583edb28eaebf85ae2771e8ca3df
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/22/7a/dbb07906e341721dae974e97f5439c4dd4ac85acd36e625d0bd85db66fe3/sip_python-0.0.2-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+- pypi: https://files.pythonhosted.org/packages/0e/73/3e43473c8cc93a0c45fd119829063ae039375d996306c9c2204916bb8f8f/sip_python-0.0.5-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 985968f84d4c056eaf12f9f16555d67a6717f70b675083fb86671fd37f94f114
+  version: 0.0.5
+  sha256: e932b87e37b9abc3178bb13bc34dc5ba6e78fb2a41ef6405a8e1dad998e1bba2
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/28/79/2c34a3dfb12ab54dfe7213cd6b3e775699e2922d770aab3597b6ba7becd4/sip_python-0.0.2-cp311-cp311-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+- pypi: https://files.pythonhosted.org/packages/18/5e/6def05edee8ea87bc6332a84bccc5f201a1e5a4f2431629a64191d3773a6/sip_python-0.0.5-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: d25127c5bb3378802bade96b825c6877b09d7900b832f5dfddf1962ea40334dc
+  version: 0.0.5
+  sha256: e30ce612e29a05242b1c0d3267b7d2d6bb520b1bbbc6301dd4417f03c8466658
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/40/50/675e5634c66742eb2baf0a70f0b971575abe506f22a35f627841a9097456/sip_python-0.0.2-cp310-cp310-win_amd64.whl
+- pypi: https://files.pythonhosted.org/packages/28/2c/8d436a1f149ddfb10216030fb95393ab6720a9579beb4aa7216486dae4d1/sip_python-0.0.5-cp311-cp311-win_amd64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 0d4cb170ebb4cf9376e68d69b1a36fd4d6e41d20ef6091fcc914952eee28fd03
+  version: 0.0.5
+  sha256: f7be3f43591f401a218dbd2ae9edade619d15587581c150b151b371492f0488d
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/66/e9/4cf3033caaced598b12242c3c112c6853623432a891f316f3b2935e122bd/sip_python-0.0.2-cp312-abi3-win_amd64.whl
+- pypi: https://files.pythonhosted.org/packages/2a/b3/3921ebff0da4423fdc1199c418bef52fbe81446b98d729201caa0832887f/sip_python-0.0.5-cp312-abi3-macosx_11_0_arm64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 2b3a22234756d7581b0853e7839b16d221e0b59e9ca36860698807728b21f04a
+  version: 0.0.5
+  sha256: 3278ed3271a59788740acbdbb6dac17231c30409b6f9c05bdc8f4d8c5812f03d
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/68/fe/9711af51430d6bdbffaa9d5e505af12e2ba67c6e9a75b26474fe1a1673d4/sip_python-0.0.2-cp312-abi3-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+- pypi: https://files.pythonhosted.org/packages/48/e0/31bf015d1b26f01fb172a24cbf488b8e6bfdca651f3f202dad20d530ed76/sip_python-0.0.5-cp310-cp310-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 6a78a1302113646880e902971b7119d640829cc822fa49f852bbd8d3230edc0b
+  version: 0.0.5
+  sha256: d9bf296465f8ec4c51ef7aed7f7305050976bacdae8bdea20bbfd2ef7a8c6679
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/72/8c/35a069eaa89b5d5207fa6f0fcc42af81179b3001b8b681eaac1330590fda/sip_python-0.0.2-cp311-cp311-win_amd64.whl
+- pypi: https://files.pythonhosted.org/packages/4a/47/312777ae4cbcf56bbaba22a1f71ad460d021dadaacfba88a91f06368ef78/sip_python-0.0.5-cp311-cp311-macosx_11_0_arm64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 50178e7fe959cf67034b977a28c7587d78f8f9531901ee1a3f75941238c117e7
+  version: 0.0.5
+  sha256: fed4ac46e13f09bb0e943688ba9eee49d8b05a518e8a587a6558a0d101bfa106
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/7b/4f/b86d9e6a941eb883332ab0c276b74a5ad058dd2a23bb5079d2d518322380/sip_python-0.0.2-cp312-abi3-macosx_11_0_arm64.whl
+- pypi: https://files.pythonhosted.org/packages/5e/51/2604eceecf57124d05d396a8f274693161af8ac4938d92a47a4e1ce3bbb1/sip_python-0.0.5-cp310-cp310-macosx_11_0_arm64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: f46aa6d042cd2a5c99ba4f53bb865a967c75e4c49f3d40faa46ec82a07620052
+  version: 0.0.5
+  sha256: 9f54289bbdb6674798bffebabfa256f44db82a80c7ad6183eaea0158fb2fe44a
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/7d/93/cbf10877d6e6eae9207f3c6940bb455cc102929ec06e6eb7ba39967eca2e/sip_python-0.0.2-cp311-cp311-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+- pypi: https://files.pythonhosted.org/packages/8e/ef/a26a017dddef395245ca5ffb2f282f0ba11ef4e1f467027bc690ae822dc1/sip_python-0.0.5-cp312-abi3-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: b6d6f2f92b7c7a0f779ef909515dae3565d02f4497f1cb6e7c34f291f62a47ab
+  version: 0.0.5
+  sha256: d753294fe4bf39b75cc0afa7dfe2bab22fb02c3fe9b5ce2e02236fab52a22a87
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/90/42/3c7769d209a8c125954458cf7accd74a0c1f221e3bf337cc97ab9326046b/sip_python-0.0.2-cp311-cp311-macosx_11_0_arm64.whl
+- pypi: https://files.pythonhosted.org/packages/a7/95/9cf26ae2a9fc46393e86257c3cf01c6597bb56d27f3a7d41da80f65f6554/sip_python-0.0.5-cp312-abi3-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: ca682671e85403e902853186500df3b152a0cc0b2b54b095f0ac91b4f1b0073b
+  version: 0.0.5
+  sha256: cdcfdb4c317fc4e4345c6b1c352abc27af405fe9de2e0dd026d8b00a6e3bfdbd
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/c4/01/2c7f6bfb581d913cbb4fbe8fce34ff7a882f4c57c36f23bbbec5b86b9832/sip_python-0.0.2-cp310-cp310-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl
+- pypi: https://files.pythonhosted.org/packages/b0/bd/f9f124decaa3ddae05f83edffed9b9cdccd59af845e4076f7d82121ddfe5/sip_python-0.0.5-cp311-cp311-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 237b4f67006c646c9fa132ec1741e09eab3a32f2c2cf1638487f5676d1d33e77
+  version: 0.0.5
+  sha256: 0c2f1006fdcbe6c83b47b3f3d2e33cd08ef40cec51f2b18d16630c694ea12d34
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
-- pypi: https://files.pythonhosted.org/packages/e5/04/1d664226578147a54f9c1ff79285159fef85e4fd4e1fa884e016b4a14c3b/sip_python-0.0.2-cp310-cp310-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl
+- pypi: https://files.pythonhosted.org/packages/e8/5a/8d607e44007d826924ab51a9429bd1328fa31242e48f9ecc02e3f5e73cde/sip_python-0.0.5-cp312-abi3-win_amd64.whl
   name: sip-python
-  version: 0.0.2
-  sha256: 876e0e4261e3bd9b5506e327235fa4878d2ca3cc84f19bfc2ac49bee8cc05650
+  version: 0.0.5
+  sha256: 729135b1f499dd02febe37158a46dc5d32373d76aa49475c78bd66d35c6cd934
   requires_dist:
   - numpy
   - scipy
+  - pytest ; extra == 'test'
   requires_python: '>=3.10'
 - conda: https://conda.anaconda.org/conda-forge/noarch/snowballstemmer-3.0.1-pyhd8ed1ab_0.conda
   sha256: 17007a4cfbc564dc3e7310dcbe4932c6ecb21593d4fec3c68610720f19e73fb2
